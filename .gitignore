@@ -1,6 +1,6 @@
 .DS_Store
 *.swp
 .nyc_output/
-.eslintrc.js
+.eslintrc.json
 coverage/
 node_modules/

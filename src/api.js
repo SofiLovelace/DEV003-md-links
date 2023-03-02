@@ -1,5 +1,6 @@
 const path = require('path')
 const fs = require('fs')
+const fsPromise = require('fs').promises
 
 // Validar si el path es valido, si es valido retorna el path resuelto a absoluto, sino retorna un error
 function pathIsValid (pathUser) {
@@ -15,7 +16,20 @@ const path3 = './src/inde.js'
 const path4 = 'README.md'
 const pathResolve = pathIsValid(path4)
 
+// Función que valida si el path lleva a un archivo .md, retorna un onjeto con un boleano, y files md que almacena un array con el path
 function isFileMd (pathResolved) {
-  return fs.readFileSync(pathResolved, 'utf-8')
+  const boolean = path.parse(pathResolved).ext === '.md'
+  return { boolean, filesMd: [pathResolved] }
 }
-console.log(isFileMd(pathResolve))
+
+// Función que lee un path y retorna una promisa con la data del archivo en 'utf-8'
+function readMd (pathMd) {
+  return fsPromise.readFile(pathMd, 'utf-8')
+}
+
+// Funcion que obtiene los links de una data en formato 'utf-8'
+function getLinksPathText (pathResolve, data){
+  
+}
+
+readMd(pathResolve).then((result) => console.log(result))
