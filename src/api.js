@@ -28,8 +28,18 @@ function readMd (pathMd) {
 }
 
 // Funcion que obtiene los links de una data en formato 'utf-8'
-function getLinksPathText (pathResolve, data){
-  
+function getLinksPathText (pathResolved, data) {
+  const regex = /\[.*\]\((http|https):\/\/.+\)/g // Usamos una expresión para buscar los links
+  const arrayLinks = []
+  data.match(regex).forEach(element => { // Aplicamos un ciclo al array de coincidencias
+    arrayLinks.push({ // Agregamos por cada elemento, un objeto a nuestro array
+      href: element.slice(element.indexOf('(') + 1, -1),
+      text: element.slice(1, element.indexOf(']')),
+      file: pathResolved
+    })
+  })
+  return arrayLinks
 }
 
-readMd(pathResolve).then((result) => console.log(result))
+readMd(pathResolve)
+  .then((result) => console.log(getLinksPathText(pathResolve, result)))
