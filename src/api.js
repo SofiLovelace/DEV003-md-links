@@ -7,14 +7,14 @@ function pathIsValid (pathUser) {
   if (fs.existsSync(pathUser)) {
     return path.resolve(pathUser)
   } else {
-    return { error: 'Ingresa un path valido' }
+    return { error: `La ruta "${pathUser}" no existe ingresa un path la ruta de un archivo md, o de un directorio que contenga archivos md` }
   }
 }
-const path1 = 'C:/black/OneDrive/Documentos/desarrollo-web/proyectos laboratoria/Bootcamp/DEV003-md-links/DEV003-md-links/index.js'
+/* const path1 = 'C:/black/OneDrive/Documentos/desarrollo-web/proyectos laboratoria/Bootcamp/DEV003-md-links/DEV003-md-links/index.js'
 const path2 = './src/index.js'
 const path3 = './src/inde.js'
 const path4 = 'README.md'
-const pathResolve = pathIsValid(path4)
+const pathResolve = pathIsValid(path4) */
 
 // Función que valida si el path lleva a un archivo .md, retorna un onjeto con un boleano, y files md que almacena un array con el path
 function isFileMd (pathResolved) {
@@ -41,5 +41,12 @@ function getLinksPathText (pathResolved, data) {
   return arrayLinks
 }
 
-readMd(pathResolve)
-  .then((result) => console.log(getLinksPathText(pathResolve, result)))
+/* readMd(pathResolve)
+  .then((result) => console.log(getLinksPathText(pathResolve, result))) */
+
+module.exports = {
+  pathIsValid,
+  isFileMd,
+  readMd,
+  getLinksPathText
+}

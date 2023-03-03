@@ -1,10 +1,25 @@
-/* function mdLinks(path, validate) {
-  console.log(path, validate);
+const api = require('./api')
+function mdLinks (path, validate) {
+  return new Promise((resolve, reject) => {
+    const pathResolveOrError = api.pathIsValid(path)
+    if (pathResolveOrError.error) {
+      reject(pathResolveOrError.error)
+    }
+    const isFileMd = api.isFileMd(pathResolveOrError)
+    if (isFileMd.boolean === false) {
+      // eslint-disable-next-line prefer-promise-reject-errors
+      reject('entramos a iterar directorios') // aqui va el camino para recorrer los directorios
+    }
+    let allLinks = []
+    isFileMd.filesMd.forEach((file) => api.readMd(file)
+      .then((result) => {
+        // console.log(result)
+        allLinks = allLinks.concat(api.getLinksPathText(file, result))
+        resolve(allLinks)
+      }))
+  })
 }
- */
 
-const pathReadme = "C:/Users/black/OneDrive/Documentos/desarrollo-web/proyectos laboratoria/Bootcamp/DEV003-md-links/DEV003-md-links/README.md";
-console.log(pathReadme);
-
-// console.log(mdLinks());
-
+mdLinks('README.md')
+  .then((result) => console.log(result))
+  .catch((error) => console.log(error))
