@@ -1,6 +1,8 @@
 const path = require('path')
 const fs = require('fs')
 const fsPromise = require('fs').promises
+const arrayLinksM = require('./array-links')
+const { resolve } = require('path')
 
 // Validar si el path es valido, si es valido retorna el path resuelto a absoluto, sino retorna un error
 function pathIsValid (pathUser) {
@@ -12,8 +14,8 @@ function pathIsValid (pathUser) {
 }
 /* const path1 = 'C:/black/OneDrive/Documentos/desarrollo-web/proyectos laboratoria/Bootcamp/DEV003-md-links/DEV003-md-links/index.js'
 const path2 = './src/index.js'
-const path3 = './src/inde.js'
-const path4 = 'README.md'
+const path3 = './src/inde.js' */
+/* const path4 = 'README.md'
 const pathResolve = pathIsValid(path4) */
 
 // Función que valida si el path lleva a un archivo .md, retorna un onjeto con un boleano, y files md que almacena un array con el path
@@ -33,7 +35,7 @@ function getLinksPathText (pathResolved, data) {
   const arrayLinks = []
   data.match(regex).forEach(element => { // Aplicamos un ciclo al array de coincidencias
     arrayLinks.push({ // Agregamos por cada elemento, un objeto a nuestro array
-      href: element.slice(element.indexOf('(') + 1, -1),
+      href: element.slice(element.indexOf('](h') + 2, -1),
       text: element.slice(1, element.indexOf(']')),
       file: pathResolved
     })
@@ -41,12 +43,40 @@ function getLinksPathText (pathResolved, data) {
   return arrayLinks
 }
 
-/* readMd(pathResolve)
-  .then((result) => console.log(getLinksPathText(pathResolve, result))) */
+// Ejecutamos un forEach sobre el array de objetos, por cada elemento realizar una consulta http usando la propiedad href de cada objeto
+function validateLinks (arrayAllLinks) {
+  return new Promise((resolve, reject) => { // retornamos el resultado como promesa, dado que trabajamos con codigo asyncrono al usar fetch
+    const arrayPromises = [] // Declaramos un array para concatenar todas las promesas de fetch
+    arrayAllLinks.forEach((object) => { // ejecutamos un ciclo sobre los links para poder validarlos
+      const promiseFetch = fetch(object.href)
+      arrayPromises.push(promiseFetch) // ingresamos cada promesa al array declarado anteriormente
+    })
+    Promise.allSettled(arrayPromises) // resolvemos hasta tener todas las proms resueltas o rechazadas
+      .then((result) => {
+        for (let i = 0; i < result.length; i++) { // ejecutamos for para poder iterar el resultado y en base a el modificar nuestro array de objetos con la data que devolveremos
+          let valueOk
+          if (result[i].status === 'fulfilled') { // validamos el estado de la petición http
+            result[i].value.ok ? valueOk = 'ok' : valueOk = 'fail'
+            arrayAllLinks[i].status = result[i].value.status
+            arrayAllLinks[i].ok = valueOk
+          } else {
+            valueOk = 'fail'
+            arrayAllLinks[i].status = result[i].reason.cause
+            arrayAllLinks[i].ok = valueOk
+          }
+        }
+        resolve(arrayAllLinks) // la promesa se resuelve devolviendo el array de objetos modificado
+      })
+  })
+}
+
+/* validateLinks(arrayLinksM)
+  .then((result) => console.log(result)) */
 
 module.exports = {
   pathIsValid,
   isFileMd,
   readMd,
-  getLinksPathText
+  getLinksPathText,
+  validateLinks
 }

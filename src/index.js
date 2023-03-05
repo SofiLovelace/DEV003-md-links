@@ -1,5 +1,5 @@
 const api = require('./api')
-function mdLinks (path, validate) {
+function mdLinks (path, options) {
   return new Promise((resolve, reject) => {
     const pathResolveOrError = api.pathIsValid(path)
     if (pathResolveOrError.error) {
@@ -15,11 +15,13 @@ function mdLinks (path, validate) {
       .then((result) => {
         // console.log(result)
         allLinks = allLinks.concat(api.getLinksPathText(file, result))
-        resolve(allLinks)
+        !options
+          ? resolve(allLinks)
+          : api.validateLinks(allLinks).then((result) => resolve(result))
       }))
   })
 }
 
-mdLinks('README.md')
+mdLinks('README.md', { validate: true })
   .then((result) => console.log(result))
   .catch((error) => console.log(error))
