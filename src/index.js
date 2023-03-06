@@ -13,7 +13,6 @@ function mdLinks (path, options) {
     let allLinks = []
     isFileMd.filesMd.forEach((file) => api.readMd(file)
       .then((result) => {
-        // console.log(result)
         allLinks = allLinks.concat(api.getLinksPathText(file, result))
         !options
           ? resolve(allLinks)

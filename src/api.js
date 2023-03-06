@@ -1,8 +1,7 @@
 const path = require('path')
 const fs = require('fs')
 const fsPromise = require('fs').promises
-const arrayLinksM = require('./array-links')
-const { resolve } = require('path')
+// const arrayLinksM = require('./array-links')
 
 // Validar si el path es valido, si es valido retorna el path resuelto a absoluto, sino retorna un error
 function pathIsValid (pathUser) {
@@ -45,7 +44,7 @@ function getLinksPathText (pathResolved, data) {
 
 // Ejecutamos un forEach sobre el array de objetos, por cada elemento realizar una consulta http usando la propiedad href de cada objeto
 function validateLinks (arrayAllLinks) {
-  return new Promise((resolve, reject) => { // retornamos el resultado como promesa, dado que trabajamos con codigo asyncrono al usar fetch
+  return new Promise((resolve) => { // retornamos el resultado como promesa, dado que trabajamos con codigo asyncrono al usar fetch
     const arrayPromises = [] // Declaramos un array para concatenar todas las promesas de fetch
     arrayAllLinks.forEach((object) => { // ejecutamos un ciclo sobre los links para poder validarlos
       const promiseFetch = fetch(object.href)
