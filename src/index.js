@@ -5,22 +5,29 @@ function mdLinks (path, options) {
     if (pathResolveOrError.error) {
       reject(pathResolveOrError.error)
     }
-    const isFileMd = api.isFileMd(pathResolveOrError)
-    if (isFileMd.boolean === false) {
-      // eslint-disable-next-line prefer-promise-reject-errors
-      reject('entramos a iterar directorios') // aqui va el camino para recorrer los directorios
+    let arrayFilesMd = api.isFileMd(pathResolveOrError).filesMd
+    if (arrayFilesMd[0].includes('.md') === false) {
+      const arrayFilesDirectory = []
+      api.readAllFiles(pathResolveOrError, arrayFilesDirectory)
+      arrayFilesDirectory.length === 0 
+      ? reject ('El directorio proporcionado no tiene ningun archivo .md, favor de proporcionar un directorio valido')
+      : arrayFilesMd = arrayFilesDirectory
     }
     let allLinks = []
-    isFileMd.filesMd.forEach((file) => api.readMd(file)
+    const promisesReadMd = []
+    arrayFilesMd.forEach((file) => promisesReadMd.push(api.readMd(file)))
+    Promise.allSettled(promisesReadMd)
       .then((result) => {
-        allLinks = allLinks.concat(api.getLinksPathText(file, result))
+        for(let i = 0; i < result.length; i++){
+          allLinks = allLinks.concat(api.getLinksPathText(arrayFilesMd[i], result[i].value))
+        }
         !options
           ? resolve(allLinks)
           : api.validateLinks(allLinks).then((result) => resolve(result))
-      }))
+      })
   })
 }
 
-mdLinks('README.md', { validate: true })
+mdLinks(api.path5, {validate: true})
   .then((result) => console.log(result))
   .catch((error) => console.log(error))

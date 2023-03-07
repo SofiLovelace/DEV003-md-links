@@ -4,7 +4,7 @@ const { dataTest, dataArrayLinksTest } = require('./data-tests')
 
 describe('pathIsValid with path src\\index.js', () => {
   it('should return the resolved path to absolute', () => {
-    expect(api.pathIsValid('README.md')).toBe('C:\\Users\\black\\OneDrive\\Documentos\\desarrollo-web\\proyectos laboratoria\\Bootcamp\\DEV003-md-links\\DEV003-md-links\\README.md')
+    expect(api.pathIsValid('README.md')).toBe('C:\\Users\\Winney\\Documents\\desarrollo-web\\proyectos laboratoria\\Bootcamp\\DEV003-md-links\\DEV003-md-links\\README.md')
   })
 })
 describe('pathIsValid with path src\\indexando.js', () => {
@@ -16,21 +16,21 @@ describe('pathIsValid with path src\\indexando.js', () => {
 
 describe('isFileMd with path README.md', () => {
   it('should return an object with a boolean of true', () => {
-    const pathAbsolute = 'C:\\Users\\black\\OneDrive\\Documentos\\desarrollo-web\\proyectos laboratoria\\Bootcamp\\DEV003-md-links\\DEV003-md-links\\README.md'
+    const pathAbsolute = 'C:\\Users\\Winney\\Documents\\desarrollo-web\\proyectos laboratoria\\Bootcamp\\DEV003-md-links\\DEV003-md-links\\README.md'
     expect(api.isFileMd(pathAbsolute).boolean).toBe(true)
   })
 })
 
 describe('readMd with path README.md', () => {
   it('should return a promise inside an object', () => {
-    const pathAbsolute = 'C:\\Users\\black\\OneDrive\\Documentos\\desarrollo-web\\proyectos laboratoria\\Bootcamp\\DEV003-md-links\\DEV003-md-links\\README.md'
+    const pathAbsolute = 'C:\\Users\\Winney\\Documents\\desarrollo-web\\proyectos laboratoria\\Bootcamp\\DEV003-md-links\\DEV003-md-links\\README.md'
     expect(typeof api.readMd(pathAbsolute)).toBe('object')
   })
 })
 
 describe('getLinksPathText with dummyData of README.md', () => {
   it('should return an array with objects', () => {
-    const pathAbsolute = 'C:\\Users\\black\\OneDrive\\Documentos\\desarrollo-web\\proyectos laboratoria\\Bootcamp\\DEV003-md-links\\DEV003-md-links\\README.md'
+    const pathAbsolute = 'C:\\Users\\Winney\\Documents\\desarrollo-web\\proyectos laboratoria\\Bootcamp\\DEV003-md-links\\DEV003-md-links\\README.md'
     const prueba = {
       href: 'https://www.youtube.com/watch?v=Lub5qOmY4JQ',
       text: 'recurso',
@@ -42,7 +42,7 @@ describe('getLinksPathText with dummyData of README.md', () => {
 
 describe('validateLinks with dummyArrayLinksTest of README.md', () => {
   it('should return an array of objects', () => {
-    const pathAbsolute = 'C:\\Users\\black\\OneDrive\\Documentos\\desarrollo-web\\proyectos laboratoria\\Bootcamp\\DEV003-md-links\\DEV003-md-links\\README.md'
+    const pathAbsolute = 'C:\\Users\\Winney\\Documents\\desarrollo-web\\proyectos laboratoria\\Bootcamp\\DEV003-md-links\\DEV003-md-links\\README.md'
     const prueba = {
       href: 'https://www.youtube.com/watch?v=Lub5qOmY4JQ',
       text: 'recurso',
@@ -53,5 +53,13 @@ describe('validateLinks with dummyArrayLinksTest of README.md', () => {
     api.validateLinks(dataArrayLinksTest).then(result => {
       expect(result).toContainEqual(prueba)
     })
+  })
+})
+
+describe('readAllFiles with path directory-test', () => {
+  it('should return an array of md files', () => {
+    const pathTest = 'C:\\Users\\Winney\\Documents\\desarrollo-web\\proyectos laboratoria\\Bootcamp\\DEV003-md-links\\DEV003-md-links\\directory-test'
+    const arrayFilesMd = []
+    expect(api.readAllFiles(pathTest, arrayFilesMd)).toContainEqual('C:\\Users\\Winney\\Documents\\desarrollo-web\\proyectos laboratoria\\Bootcamp\\DEV003-md-links\\DEV003-md-links\\directory-test\\README.md')
   })
 })
