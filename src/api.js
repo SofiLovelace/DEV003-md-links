@@ -11,6 +11,7 @@ function pathIsValid (pathUser) {
     return { error: `La ruta "${pathUser}" no existe ingresa un path la ruta de un archivo md, o de un directorio que contenga archivos md` }
   }
 }
+// console.log(pathIsValid('README.md'))
 
 const path4 = 'README.md'
 const pathResolve = pathIsValid(path4)
