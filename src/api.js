@@ -66,15 +66,14 @@ function validateLinks (arrayAllLinks) {
 /* función para leer todos los directorios y extraer archivos de los directorios */
 function readAllFiles (pathDirectory, arrayOfFiles) { // le pasamos una ruta de un directorio y un array para agregar los archivos
   fs.readdirSync(pathDirectory).forEach(file => { // leemos un directorio y aplicamos un for each sobre cada elemento
-    if (fs.statSync(`${pathDirectory}\\${file}`).isDirectory()) { // validamos por medio de statSync si es un directorio
-      readAllFiles(`${pathDirectory}\\${file}`, arrayOfFiles) // entramos en recursividad si es un directorio
+    if (fs.statSync(pathDirectory + path.sep + file).isDirectory()) { // validamos por medio de statSync si es un directorio
+      readAllFiles(pathDirectory + path.sep + file, arrayOfFiles) // entramos en recursividad si es un directorio
     } else if (file.includes('.md')) { // si no es un directorio, validamos si es md,
-      arrayOfFiles.push(`${pathDirectory}\\${file}`) // lo añadimos a nuestro array de archivos md
+      arrayOfFiles.push(pathDirectory + path.sep + file) // lo añadimos a nuestro array de archivos md
     }
   })
   return arrayOfFiles // returnamos este array
 }
-
 // const filesDirectory = []
 // console.log(readAllFiles(path5, filesDirectory))
 
