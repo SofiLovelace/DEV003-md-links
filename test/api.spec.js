@@ -43,7 +43,7 @@ describe('getLinksPathText with dummyData of README.md', () => {
 describe('validateLinks with dummyArrayLinksTest of README.md', () => {
   it('should return an array of objects', () => {
     const prueba = 'https://user-images.githubusercontent.com/110297/42118443-b7a5f1f0-7bc8-11e8-96ad-9cc5593715a6.jpg'
-    api.validateLinks(dataArrayLinksTest).catch(result => {
+    return api.validateLinks(dataArrayLinksTest).catch(result => {
       expect(result[0].href).toBe(prueba)
     })
   })
@@ -69,6 +69,6 @@ describe('readAllFiles with path directory-test', () => {
   it('should return an array of md files', () => {
     const pathTest = 'C:\\Users\\Winney\\Documents\\desarrollo-web\\proyectos laboratoria\\Bootcamp\\DEV003-md-links\\DEV003-md-links\\directory-test'
     const arrayFilesMd = []
-    expect(api.readAllFiles(pathTest, arrayFilesMd)).toContainEqual('C:\\Users\\Winney\\Documents\\desarrollo-web\\proyectos laboratoria\\Bootcamp\\DEV003-md-links\\DEV003-md-links\\directory-test\\README.md')
+    expect(api.readAllFiles(pathTest, arrayFilesMd)).toContain('C:\\Users\\Winney\\Documents\\desarrollo-web\\proyectos laboratoria\\Bootcamp\\DEV003-md-links\\DEV003-md-links\\directory-test\\directory-test-4\\README.md')
   })
 })

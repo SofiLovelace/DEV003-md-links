@@ -10,6 +10,7 @@ function mdLinks (path, options) {
       const arrayFilesDirectory = []
       api.readAllFiles(pathResolveOrError, arrayFilesDirectory)
       arrayFilesDirectory.length === 0
+        // eslint-disable-next-line prefer-promise-reject-errors
         ? reject('El directorio proporcionado no tiene ningun archivo .md, favor de proporcionar un directorio valido')
         : arrayFilesMd = arrayFilesDirectory
     }
