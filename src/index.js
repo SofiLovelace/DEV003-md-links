@@ -21,7 +21,6 @@ function mdLinks (path, options) {
         for (let i = 0; i < result.length; i++) {
           allLinks = allLinks.concat(api.getLinksPathText(arrayFilesMd[i], result[i].value))
         }
-        console.log('==============================>', options.validate)
         !options.validate
           ? resolve(allLinks)
           : api.validateLinks(allLinks).then((result) => resolve(result))
@@ -29,8 +28,4 @@ function mdLinks (path, options) {
   })
 }
 
-/* mdLinks(api.path5, { validate: false })
-  .then((result) => console.log(result))
-  .catch((error) => console.log(error))
- */
 module.exports = { mdLinks }

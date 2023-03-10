@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 const api = require('../src/api')
-const { dataTest, dataArrayLinksTest } = require('./data-tests')
+const { dataTest, dataArrayLinksTest, dataArrayLinksTestFail } = require('./data-tests')
 
 describe('pathIsValid with path src\\index.js', () => {
   it('should return the resolved path to absolute', () => {
@@ -42,16 +42,25 @@ describe('getLinksPathText with dummyData of README.md', () => {
 
 describe('validateLinks with dummyArrayLinksTest of README.md', () => {
   it('should return an array of objects', () => {
-    const pathAbsolute = 'C:\\Users\\Winney\\Documents\\desarrollo-web\\proyectos laboratoria\\Bootcamp\\DEV003-md-links\\DEV003-md-links\\README.md'
-    const prueba = {
-      href: 'https://www.youtube.com/watch?v=Lub5qOmY4JQ',
-      text: 'recurso',
-      file: pathAbsolute,
-      status: 202,
-      ok: 'ok'
-    }
-    api.validateLinks(dataArrayLinksTest).then(result => {
-      expect(result).toContainEqual(prueba)
+    const prueba = 'https://user-images.githubusercontent.com/110297/42118443-b7a5f1f0-7bc8-11e8-96ad-9cc5593715a6.jpg'
+    api.validateLinks(dataArrayLinksTest).catch(result => {
+      expect(result[0].href).toBe(prueba)
+    })
+  })
+})
+
+describe('validateLinks with dummyArrayLinksTest of README.md', () => {
+  it('should return an array of objects', () => {
+    return api.validateLinks(dataArrayLinksTest).then(result => {
+      expect(result[0].status).toBe(200)
+    })
+  })
+})
+
+describe('validateLinks with dummyArrayLinksTestFail of README.md', () => {
+  it('should return an array of objects', () => {
+    return api.validateLinks(dataArrayLinksTestFail).then(result => {
+      expect(result[0].ok).toBe('fail')
     })
   })
 })

@@ -11,11 +11,6 @@ function pathIsValid (pathUser) {
     return { error: `La ruta "${pathUser}" no existe ingresa un path la ruta de un archivo md, o de un directorio que contenga archivos md` }
   }
 }
-// console.log(pathIsValid('README.md'))
-
-const path4 = 'README.md'
-const pathResolve = pathIsValid(path4)
-const path5 = 'C:\\Users\\Winney\\Documents\\desarrollo-web\\proyectos laboratoria\\Bootcamp\\DEV003-md-links\\DEV003-md-links\\directory-test'
 
 /* Función que valida si el path lleva a un archivo .md, retorna un onjeto con un boleano, y files md que almacena un array con el path */
 function isFileMd (pathResolved) {
@@ -67,8 +62,6 @@ function validateLinks (arrayAllLinks) {
       })
   })
 }
-/* validateLinks(arrayLinksM)
-  .then((result) => console.log(result)) */
 
 /* función para leer todos los directorios y extraer archivos de los directorios */
 function readAllFiles (pathDirectory, arrayOfFiles) { // le pasamos una ruta de un directorio y un array para agregar los archivos
@@ -86,7 +79,6 @@ function readAllFiles (pathDirectory, arrayOfFiles) { // le pasamos una ruta de 
 // console.log(readAllFiles(path5, filesDirectory))
 
 module.exports = {
-  path5,
   pathIsValid,
   isFileMd,
   readMd,
