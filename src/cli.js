@@ -16,7 +16,7 @@ function validateOptions (arrayOfArguments) {
             arrayUniquesUrls.push(element.href)
           }
           if (element.ok === 'fail') {
-            arrayBrokenUrls.push(element.href)
+            arrayBrokenUrls.push(element)
           }
         })
         if (arrayOfArguments.includes('--validate') && arrayOfArguments.includes('--stats')) {
@@ -25,7 +25,7 @@ function validateOptions (arrayOfArguments) {
           if (arrayOfArguments.includes('--brokens')) {
             console.log('==========================================================', '\nBROKENS LINKS')
             arrayBrokenUrls.forEach(element => {
-              console.log('>', element)
+              console.log('\n> file: ', element.file, '\n> href: ', element.href, '\n')
             })
           }
         } else {

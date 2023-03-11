@@ -42,8 +42,8 @@ describe('getLinksPathText with dummyData of README.md', () => {
 
 describe('validateLinks with dummyArrayLinksTest of README.md', () => {
   it('should return an array of objects', () => {
-    const prueba = 'https://user-images.githubusercontent.com/110297/42118443-b7a5f1f0-7bc8-11e8-96ad-9cc5593715a6.jpg'
-    return api.validateLinks(dataArrayLinksTest).catch(result => {
+    const prueba = 'https://es.wikipedia.org/wiki/Markdown'
+    return api.validateLinks(dataArrayLinksTest).then(result => {
       expect(result[0].href).toBe(prueba)
     })
   })
