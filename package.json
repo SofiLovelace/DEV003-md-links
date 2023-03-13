@@ -10,12 +10,13 @@
     "commit": "a63a770ea33332882790401851df337734b0b734"
   },
   "description": "npm library developed to validate search for md files within a directory, find the links in md format and check if they are still valid",
-  "main": "index.js",
+  "main": "src/cli.js",
   "directories": {
     "test": "test"
   },
   "scripts": {
-    "test": "jest --coverage"
+    "test": "jest --coverage",
+    "start": "node src/cli.js"
   },
   "bin": {
     "md-links": "src/cli.js"
@@ -28,9 +29,11 @@
     "http",
     "links",
     "markdown",
-    "NodeJS"
+    "NodeJS",
+    "readme.md",
+    "md"
   ],
-  "author": "Sofía Islas Gutiérrez",
+  "author": "Sofía Lovelace",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/SofiLovelace/DEV003-md-links/issues"
