@@ -1,13 +1,26 @@
 #!/usr/bin/env node
 const { mdLinks } = require('./index')
-// console.log(process.argv); [0] = node.exe, [1] = cli.js, [2] = pathUser, [3 && 4] = options
+// eslint-disable-next-line no-unused-vars
+const colors = require('colors')
 
 function validateOptions (arrayOfArguments) {
   const pathUser = arrayOfArguments[2]
   const booleanValidate = arrayOfArguments.includes('--validate')
   mdLinks(pathUser, { validate: booleanValidate })
     .then((result) => {
-      console.log(result)
+      console.group('**********************Information all links**********************'.bgBlue)
+      result.forEach(element => {
+        console.log('================================================================================================================================='.yellow)
+        console.log('File  ', '->  ', element.file)
+        console.log('Text  ', '->  ', element.text)
+        console.log('Href  ', '->  ', element.href.blue)
+        // eslint-disable-next-line no-unused-expressions
+        element.status ? console.log('Status', '->  ', element.status) : 'no status'
+        // eslint-disable-next-line no-unused-expressions
+        element.ok ? console.log('Ok    ', '->  ', element.ok) : 'no ok'
+      })
+      console.groupEnd()
+
       if (arrayOfArguments.includes('--stats')) {
         const arrayUniquesUrls = []
         const arrayBrokenUrls = []
@@ -20,22 +33,26 @@ function validateOptions (arrayOfArguments) {
           }
         })
         if (arrayOfArguments.includes('--validate') && arrayOfArguments.includes('--stats')) {
-          console.log('\n==========================================================')
-          console.log('Total:', result.length, '\nUnique:', arrayUniquesUrls.length, '\nBroken:', arrayBrokenUrls.length)
+          console.group('\n\n******STATS*******'.bgGreen)
+          console.log('-> Total: ', result.length, '\n-> Unique:', arrayUniquesUrls.length, '\n-> Broken:', arrayBrokenUrls.length)
+          console.groupEnd()
           if (arrayOfArguments.includes('--brokens')) {
-            console.log('==========================================================', '\nBROKENS LINKS')
+            console.group('\n******BROKENS******'.bgRed)
             arrayBrokenUrls.forEach(element => {
-              console.log('\n> file: ', element.file, '\n> href: ', element.href, '\n')
+              console.log('=========================================================================================================================='.yellow)
+              console.log('> file: ', element.file, '\n> href: ', element.href)
             })
+            console.groupEnd()
           }
         } else {
-          console.log('\n==================================================================================')
-          console.log('Total:', result.length, '\nUnique:', arrayUniquesUrls.length)
+          console.group('\n\n******STATS*******'.bgGreen)
+          console.log('-> Total:', result.length, '\n-> Unique:', arrayUniquesUrls.length)
+          console.groupEnd()
         }
       }
       process.exit()
     })
-    .catch((error) => console.log(error))
+    .catch((error) => console.error(error))
 }
 
 validateOptions(process.argv)

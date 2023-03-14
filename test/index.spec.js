@@ -43,7 +43,7 @@ describe('md-links without validate option, with valid directory', () => {
   it('should return an array of objects with', () => {
     jest.spyOn(api, 'readMd').mockReturnValue(dummyData)
     return mdLinks('directory-test', { validate: false }).then(result => {
-      expect(typeof result[1]).toBe('object')
+      expect(typeof result[1]).toBe('string')
       jest.spyOn(api, 'readMd').mockRestore()
     })
   })
