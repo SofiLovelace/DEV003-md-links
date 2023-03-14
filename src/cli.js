@@ -2,10 +2,22 @@
 const { mdLinks } = require('./index')
 // eslint-disable-next-line no-unused-vars
 const colors = require('colors')
+// const { version } = require('prettier')
 
 function validateOptions (arrayOfArguments) {
   const pathUser = arrayOfArguments[2]
   const booleanValidate = arrayOfArguments.includes('--validate')
+  if (pathUser === '--version' || pathUser === '-V' || pathUser === '-v') {
+    return console.log('version: ', '0.1.6')
+  }
+  if (pathUser === '--description' || pathUser === '-D' || pathUser === '-d') {
+    return console.log('version: ', 'npm library developed to validate search for md files within a directory, find the links in md format and check if they are still valid')
+  }
+  // "
+  if (pathUser === '--help' || pathUser === '-H' || pathUser === '-h') {
+    const help = [{ comands: '--version or -v', use: 'use first paragm to get version' }, { comands: '--help or -h', use: 'use first paragm to get help' }, { comands: '<path>', use: 'use first paragm to path to read' }, { comands: '--validate', use: 'affter of path to get status links' }, { comands: '--stats', use: 'affter of path to get stats of links' }, { comands: '--brokens', use: 'affter of path -- validate and --stats to get brokens links' }, { comands: '--description or -d', use: 'use first paragm to path to get description' }]
+    return console.table(help)
+  }
   mdLinks(pathUser, { validate: booleanValidate })
     .then((result) => {
       console.group('**********************Information all links**********************'.bgBlue)
@@ -53,6 +65,7 @@ function validateOptions (arrayOfArguments) {
       process.exit()
     })
     .catch((error) => console.error(error))
+  process.exit()
 }
 
 validateOptions(process.argv)
