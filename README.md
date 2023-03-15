@@ -19,7 +19,7 @@ npm install sofilovelace-md-links -g
 git clone https://github.com/SofiLovelace/DEV003-md-links.git
 ``
 ## Quick Start
-Puedes ejecutar el modulo directamente desde powersell o tu terminal preferida, solo tienes que dirigirte a la ruta donde se encuentre el archivo o directorio a validar y ejecutar: 
+You can run the module directly from powershell or your preferred terminal, you just have to go to the path where the file or directory to validate and execute is located:
 ``
 md-links
 ``.

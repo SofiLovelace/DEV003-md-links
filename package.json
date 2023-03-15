@@ -1,6 +1,6 @@
 {
   "name": "sofilovelace-md-links",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "engines": {
     "node": ">=16.x"
   },
@@ -53,6 +53,7 @@
     "prettier": "^2.8.4"
   },
   "dependencies": {
-    "colors": "^1.4.0"
+    "colors": "^1.4.0",
+    "sofilovelace-md-links": "^1.0.0"
   }
 }

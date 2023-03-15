@@ -9,7 +9,7 @@ function validateOptions (arrayOfArguments) {
     return console.error('Error: ', 'insert a command or path, for help <--help>'.red)
   }
   if (pathUser === '--version' || pathUser === '-V' || pathUser === '-v') {
-    return console.log('version: ', '1.0.0')
+    return console.log('version: ', '1.0.1')
   }
   if (pathUser === '--description' || pathUser === '-D' || pathUser === '-d') {
     return console.log('version: ', 'npm library developed to validate search for md files within a directory, find the links in md format and check if they are still valid')

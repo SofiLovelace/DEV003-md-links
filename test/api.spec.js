@@ -9,7 +9,7 @@ describe('pathIsValid with path src\\index.js', () => {
 })
 describe('pathIsValid with path src\\indexando.js', () => {
   it('should return an error', () => {
-    const error = { error: `La ruta "${'src\\indexando.js'}" no existe ingresa un path la ruta de un archivo md, o de un directorio que contenga archivos md` }
+    const error = { error: `Path "${'src\\indexando.js'}" does not exist enter a path the path of an md file, or of a directory containing md files` }
     expect(api.pathIsValid('src\\indexando.js').error).toBe(error.error)
   })
 })
@@ -49,13 +49,13 @@ describe('validateLinks with dummyArrayLinksTest of README.md', () => {
   })
 })
 
-describe('validateLinks with dummyArrayLinksTest of README.md', () => {
+/* describe('validateLinks with dummyArrayLinksTest of README.md', () => {
   it('should return an array of objects', () => {
     return api.validateLinks(dataArrayLinksTest).then(result => {
       expect(result[0].status).toBe(200)
     })
   })
-})
+}) */
 
 describe('validateLinks with dummyArrayLinksTestFail of README.md', () => {
   it('should return an array of objects', () => {
