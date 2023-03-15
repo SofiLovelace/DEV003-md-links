@@ -28,5 +28,7 @@ function mdLinks (path, options) {
       })
   })
 }
-
+/* mdLinks('README.m', { validate: false })
+  .then((result) => console.log(result))
+  .catch((error) => console.log(error)) */
 module.exports = { mdLinks }

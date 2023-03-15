@@ -1,14 +1,13 @@
 const path = require('path')
 const fs = require('fs')
 const fsPromise = require('fs').promises
-// const arrayLinksM = require('./array-links')
 
 /* Validar si el path es valido, si es valido retorna el path resuelto a absoluto, sino retorna un error */
 function pathIsValid (pathUser) {
   if (fs.existsSync(pathUser)) {
     return path.resolve(pathUser)
   } else {
-    return { error: `La ruta "${pathUser}" no existe ingresa un path la ruta de un archivo md, o de un directorio que contenga archivos md` }
+    return { error: `Path "${pathUser}" does not exist enter a path the path of an md file, or of a directory containing md files` }
   }
 }
 

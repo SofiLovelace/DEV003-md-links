@@ -2,22 +2,23 @@
 const { mdLinks } = require('./index')
 // eslint-disable-next-line no-unused-vars
 const colors = require('colors')
-// const { version } = require('prettier')
 
 function validateOptions (arrayOfArguments) {
   const pathUser = arrayOfArguments[2]
-  const booleanValidate = arrayOfArguments.includes('--validate')
+  if (!pathUser) {
+    return console.error('Error: ', 'insert a command or path, for help <--help>'.red)
+  }
   if (pathUser === '--version' || pathUser === '-V' || pathUser === '-v') {
-    return console.log('version: ', '0.1.6')
+    return console.log('version: ', '1.0.0')
   }
   if (pathUser === '--description' || pathUser === '-D' || pathUser === '-d') {
     return console.log('version: ', 'npm library developed to validate search for md files within a directory, find the links in md format and check if they are still valid')
   }
-  // "
   if (pathUser === '--help' || pathUser === '-H' || pathUser === '-h') {
     const help = [{ comands: '--version or -v', use: 'use first paragm to get version' }, { comands: '--help or -h', use: 'use first paragm to get help' }, { comands: '<path>', use: 'use first paragm to path to read' }, { comands: '--validate', use: 'affter of path to get status links' }, { comands: '--stats', use: 'affter of path to get stats of links' }, { comands: '--brokens', use: 'affter of path -- validate and --stats to get brokens links' }, { comands: '--description or -d', use: 'use first paragm to path to get description' }]
     return console.table(help)
   }
+  const booleanValidate = arrayOfArguments.includes('--validate')
   mdLinks(pathUser, { validate: booleanValidate })
     .then((result) => {
       console.group('**********************Information all links**********************'.bgBlue)
@@ -64,16 +65,7 @@ function validateOptions (arrayOfArguments) {
       }
       process.exit()
     })
-    .catch((error) => console.error(error))
-  process.exit()
+    .catch((error) => console.error(error.red))
 }
 
 validateOptions(process.argv)
-
-/* program.version('0.0.1').description('npm library developed to validate search for md files within a directory, find the links in md format and check if they are still valid')
-
-program.command('<path>').action((path) => {
-  console.log(path)
-})
-
-program.parse(process.argv) */

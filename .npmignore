@@ -1,5 +1,4 @@
 test/
-src/array-links.js
 directory-test
 .gitignore
 coverage/
